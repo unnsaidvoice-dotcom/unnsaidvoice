@@ -1,0 +1,760 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>@unnsaidvoice</title>
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      min-height: 100vh;
+      background: #80695f;
+      color: #000;
+      font-family: Arial, Helvetica, sans-serif;
+    }
+
+    /* =========================
+       MAIN PAGE
+    ========================== */
+
+    .page {
+      width: 100%;
+      max-width: 720px;
+      min-height: 100vh;
+      margin: auto;
+      position: relative;
+      overflow: hidden;
+      padding: 15px 22px 45px;
+    }
+
+
+    /* =========================
+       VIDEO BACKGROUND
+    ========================== */
+
+    .video-section {
+      position: absolute;
+      top: 0;
+      left: 0;
+
+      width: 100%;
+      height: 570px;
+
+      overflow: hidden;
+      z-index: 0;
+    }
+
+    .background-video {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+      object-position: center top;
+
+      display: block;
+    }
+
+    /* Dark/transparent gradient over video */
+    .video-overlay {
+      position: absolute;
+      inset: 0;
+
+      background:
+        linear-gradient(
+          to bottom,
+          rgba(0, 0, 0, 0.03) 0%,
+          rgba(0, 0, 0, 0.08) 35%,
+          rgba(128, 105, 95, 0.25) 58%,
+          rgba(128, 105, 95, 0.88) 82%,
+          #80695f 100%
+        );
+    }
+
+
+    /* =========================
+       CONTENT ABOVE VIDEO
+    ========================== */
+
+    .content {
+      position: relative;
+      z-index: 2;
+    }
+
+
+    /* =========================
+       TOP BAR
+    ========================== */
+
+    .topbar {
+      height: 55px;
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .top-button {
+      width: 52px;
+      height: 52px;
+
+      border: none;
+      border-radius: 50%;
+
+      background: rgba(255, 255, 255, 0.92);
+
+      color: #000;
+      font-size: 27px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      cursor: pointer;
+
+      transition: transform 0.2s ease;
+    }
+
+    .top-button:hover {
+      transform: scale(1.05);
+    }
+
+
+    /* =========================
+       PROFILE
+    ========================== */
+
+    .profile {
+      text-align: center;
+
+      padding-top: 250px;
+      margin-bottom: 34px;
+    }
+
+    .profile-logo {
+      width: 105px;
+      height: 105px;
+
+      margin: 0 auto 15px;
+
+      border-radius: 50%;
+
+      background: #111;
+
+      border: 4px solid #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      color: #fff;
+
+      font-size: 30px;
+      font-weight: 900;
+
+      letter-spacing: -3px;
+
+      box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+    }
+
+    .username {
+      font-size: 23px;
+      font-weight: 800;
+
+      margin-bottom: 12px;
+    }
+
+    .bio {
+      max-width: 520px;
+
+      margin: auto;
+
+      font-size: 18px;
+      line-height: 1.45;
+
+      font-weight: 500;
+    }
+
+    .verified {
+      display: inline-flex;
+
+      align-items: center;
+      gap: 7px;
+
+      margin-top: 14px;
+
+      padding: 7px 13px;
+
+      border-radius: 10px;
+
+      background: rgba(255,255,255,0.32);
+
+      color: #222;
+
+      font-size: 15px;
+    }
+
+    .verified-icon {
+      width: 20px;
+      height: 20px;
+
+      border-radius: 50%;
+
+      background: #20aeea;
+      color: white;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 13px;
+      font-weight: bold;
+    }
+
+
+    /* =========================
+       LINK CARDS
+    ========================== */
+
+    .links {
+      display: flex;
+      flex-direction: column;
+
+      gap: 17px;
+    }
+
+    .link-card {
+      position: relative;
+
+      width: 100%;
+      min-height: 82px;
+
+      background: #fff;
+
+      border: 3px solid #000;
+      border-radius: 42px;
+
+      color: #000;
+      text-decoration: none;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      padding: 12px 65px 12px 100px;
+
+      box-shadow: 0 8px 0 #000;
+
+      transition:
+        transform 0.15s ease,
+        box-shadow 0.15s ease;
+    }
+
+    .link-card:hover {
+      transform: translateY(-2px);
+
+      box-shadow: 0 10px 0 #000;
+    }
+
+    .link-card:active {
+      transform: translateY(5px);
+
+      box-shadow: 0 3px 0 #000;
+    }
+
+
+    /* =========================
+       CARD ICON
+    ========================== */
+
+    .thumbnail {
+      position: absolute;
+
+      left: 12px;
+
+      width: 62px;
+      height: 62px;
+
+      border-radius: 50%;
+
+      background: #111;
+
+      color: #fff;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      font-size: 23px;
+      font-weight: bold;
+
+      overflow: hidden;
+    }
+
+    .thumbnail img {
+      width: 100%;
+      height: 100%;
+
+      object-fit: cover;
+    }
+
+
+    /* =========================
+       CARD TEXT
+    ========================== */
+
+    .card-content {
+      width: 100%;
+
+      text-align: center;
+    }
+
+    .card-title {
+      font-size: 20px;
+      font-weight: 700;
+
+      line-height: 1.25;
+    }
+
+    .card-subtitle {
+      margin-top: 5px;
+
+      color: #777;
+
+      font-size: 15px;
+      line-height: 1.25;
+    }
+
+
+    /* =========================
+       THREE DOTS
+    ========================== */
+
+    .dots {
+      position: absolute;
+
+      right: 22px;
+
+      color: #777;
+
+      font-size: 23px;
+      line-height: 1;
+    }
+
+
+    /* =========================
+       BUSINESS INQUIRY
+    ========================== */
+
+    .business .card-title {
+      font-size: 18px;
+    }
+
+    .business .card-subtitle {
+      font-size: 14px;
+    }
+
+
+    /* =========================
+       FOOTER
+    ========================== */
+
+    .footer {
+      text-align: center;
+
+      margin-top: 35px;
+
+      color: rgba(255,255,255,0.75);
+
+      font-size: 13px;
+    }
+
+
+    /* =========================
+       MOBILE
+    ========================== */
+
+    @media (max-width: 500px) {
+
+      .page {
+        padding-left: 22px;
+        padding-right: 22px;
+      }
+
+      .video-section {
+        height: 555px;
+      }
+
+      .profile {
+        padding-top: 245px;
+      }
+
+      .profile-logo {
+        width: 95px;
+        height: 95px;
+      }
+
+      .username {
+        font-size: 21px;
+      }
+
+      .bio {
+        font-size: 17px;
+      }
+
+      .link-card {
+        min-height: 78px;
+
+        padding-left: 92px;
+        padding-right: 55px;
+      }
+
+      .thumbnail {
+        width: 58px;
+        height: 58px;
+      }
+
+      .card-title {
+        font-size: 19px;
+      }
+
+      .card-subtitle {
+        font-size: 14px;
+      }
+    }
+
+  </style>
+</head>
+
+
+<body>
+
+
+  <!-- =========================
+       VIDEO
+  ========================== -->
+
+  <div class="video-section">
+
+    <video
+      class="background-video"
+      autoplay
+      muted
+      loop
+      playsinline
+      preload="auto"
+    >
+      <source src="profile-video.mp4" type="video/mp4">
+
+      Your browser does not support video.
+    </video>
+
+    <div class="video-overlay"></div>
+
+  </div>
+
+
+  <!-- =========================
+       PAGE CONTENT
+  ========================== -->
+
+  <main class="page">
+
+    <div class="content">
+
+
+      <!-- TOP BUTTONS -->
+
+      <div class="topbar">
+
+        <button
+          class="top-button"
+          onclick="window.scrollTo({top: 0, behavior: 'smooth'})"
+          aria-label="Home"
+        >
+          ✱
+        </button>
+
+
+        <button
+          class="top-button"
+          onclick="sharePage()"
+          aria-label="Share"
+        >
+          ↗
+        </button>
+
+      </div>
+
+
+      <!-- =========================
+           PROFILE
+      ========================== -->
+
+      <section class="profile">
+
+        <div class="profile-logo">
+          UV
+        </div>
+
+
+        <h1 class="username">
+          @unnsaidvoice
+        </h1>
+
+
+        <p class="bio">
+          🌎 Unsaid thoughts. Real feelings. Life. 🎥✨
+        </p>
+
+
+        <div class="verified">
+
+          <span class="verified-icon">
+            ✓
+          </span>
+
+          Creator
+
+        </div>
+
+      </section>
+
+
+      <!-- =========================
+           LINK CARDS
+      ========================== -->
+
+      <section class="links">
+
+
+        <!-- INSTAGRAM -->
+
+        <a
+          class="link-card"
+          href="https://www.instagram.com/unnsaidvoice?stkn=MXVqd3piM2M2eGhiaA=="
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="thumbnail">
+            ◎
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              Instagram
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+        <!-- YOUTUBE -->
+
+        <a
+          class="link-card"
+          href="https://youtube.com/@unnsaidvoice?si=M7zxFcE8zWsxqyII"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="thumbnail">
+            ▶
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              YouTube
+            </div>
+
+            <div class="card-subtitle">
+              ▶ Unsaid Voice
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+        <!-- FACEBOOK -->
+
+        <a
+          class="link-card"
+          href="https://www.facebook.com/share/1EXLAvk952/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="thumbnail">
+            f
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              Facebook
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+        <!-- THREADS -->
+
+        <a
+          class="link-card"
+          href="https://www.threads.com/@unnsaidvoice"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="thumbnail">
+            @
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              Threads
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+        <!-- PINTEREST -->
+
+        <a
+          class="link-card"
+          href="https://pin.it/d1VQHhPuS"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+
+          <div class="thumbnail">
+            P
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              Pinterest
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+        <!-- BUSINESS INQUIRY -->
+
+        <a
+          class="link-card business"
+          href="mailto:unnsaidvoice@gmail.com?subject=Business%20Inquiry"
+        >
+
+          <div class="thumbnail">
+            ✉
+          </div>
+
+          <div class="card-content">
+
+            <div class="card-title">
+              For Business Enquiries
+            </div>
+
+            <div class="card-subtitle">
+              ✉ Email · unnsaidvoice@gmail.com
+            </div>
+
+          </div>
+
+          <div class="dots">
+            ⋮
+          </div>
+
+        </a>
+
+
+      </section>
+
+
+      <!-- FOOTER -->
+
+      <div class="footer">
+        @unnsaidvoice
+      </div>
+
+
+    </div>
+
+  </main>
+
+
+  <!-- =========================
+       SHARE FUNCTION
+  ========================== -->
+
+  <script>
+
+    function sharePage() {
+
+      if (navigator.share) {
+
+        navigator.share({
+          title: '@unnsaidvoice',
+          text: 'Follow @unnsaidvoice',
+          url: window.location.href
+        });
+
+      } else {
+
+        navigator.clipboard.writeText(window.location.href);
+
+        alert('Page link copied!');
+
+      }
+
+    }
+
+  </script>
+
+
+</body>
+</html>
